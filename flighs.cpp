@@ -9,13 +9,13 @@
 #include <sstream> 
 #include <cstring>
 #include <algorithm>
-#include "Vuelo.h"
+#include "Vuela.h"
 
 using namespace std;
 
 //Variables Globales
 vector<Pasajero> Pasajeros; //Vector con todos los pasajeros
-vector<Vuelo> Vuelos; //Vector con todos los vuelos
+vector<Vuela> Vuelos; //Vector con todos los vuelos
 string jump="\n"; //String para simplificar salto de linea
 int nVuelos = 0; //Contador de numero de vuelos
 
@@ -26,7 +26,7 @@ void filldata(){
     int counter=0;
     Pasajero pasajero;
     //Variables Vuelo
-    Vuelo Vuelo;
+    Vuela Vuela;
     Fecha Fecha;
     RelojD Hora;
     int iPrecio;
@@ -94,7 +94,7 @@ void filldata(){
     
                 Fecha.setYear(stoi(ano1+ano2+ano3+ano4));
                     
-                Vuelo.setFecha(Fecha);
+                Vuela.setFecha(Fecha);
                 //counter=0;
             }
             else if(counter== 1){//hour
@@ -115,22 +115,22 @@ void filldata(){
                         Hora.setMinutos(vect[i]);
                     }
                 }
-                Vuelo.setHora(Hora);
+                Vuela.setHora(Hora);
             }
             else if(counter== 2){//price
-                Vuelo.setPrecio(stoi(word));
+                Vuela.setPrecio(stoi(word));
             }
             else if(counter== 3){//destino
-                Vuelo.setDestino(word);
+                Vuela.setDestino(word);
             }
             else if(counter== 4){//aerolina
-                Vuelo.setAerolinea(word);
+                Vuela.setAerolinea(word);
             }
             else if(counter== 5){//km
-                Vuelo.setKilometros(stoi(word));
+                Vuela.setKilometros(stoi(word));
             }
             else if(counter== 6){//km
-                Vuelo.setAsientos(stoi(word));
+                Vuela.setAsientos(stoi(word));
             }
             counter++;
         } while (ss);
@@ -142,9 +142,9 @@ void filldata(){
             while(j<4){
                 string word; 
                 ss >> word;
-                Vuelo.setReservaAsiento(i,j,stoi(word));
+                Vuela.setReservaAsiento(i,j,stoi(word));
                 if(stoi(word)!=-1){
-                    Vuelo.derementaAsientos();
+                    Vuela.derementaAsientos();
                 }
                 j++;
             }
@@ -152,7 +152,7 @@ void filldata(){
             i++;
         }
         MyReadFile3.close();
-        Vuelos.push_back(Vuelo); //se inserta al vector el objeto
+        Vuelos.push_back(Vuela); //se inserta al vector el objeto
         nVuelos++;
         vueloid++;
         counter=0;
@@ -294,7 +294,7 @@ int loginSC(){
     return -1;
 }
 
-int loginVuelo(){
+int loginVuela(){
     Fecha Fecha;
     RelojD Hora;
     string sDestino;
@@ -362,8 +362,8 @@ int loginVueloDate(int idia,int imes,int anoi){
     
 }
 
-void crearVuelo(){
-    Vuelo Vuelo;
+void crearVuela(){
+    Vuela Vuela;
     int dia,mes,ano;
     
     int hora,minuto;
@@ -389,12 +389,12 @@ void crearVuelo(){
     cout<<"Ingresa el destino: >";cin>>sDestino;
     cout<<"Ingresa el numero de kilometros: >";cin>>iKm;
     
-    Vuelo.setFecha(fecha);
-    Vuelo.setHora(clock);
-    Vuelo.setPrecio(iPrecio);
-    Vuelo.setDestino(sDestino);
-    Vuelo.setAerolinea(sAerolinea);
-    Vuelo.setKilometros(iKm);
+    Vuela.setFecha(fecha);
+    Vuela.setHora(clock);
+    Vuela.setPrecio(iPrecio);
+    Vuela.setDestino(sDestino);
+    Vuela.setAerolinea(sAerolinea);
+    Vuela.setKilometros(iKm);
 
     Vuelos.push_back(Vuelo);
     ofstream outfile;
@@ -603,10 +603,10 @@ void vuelos(){
         cout<<jump;
         switch (option){
             case 1:
-                crearVuelo();
+                crearVuela();
                 break;
             case 2:
-                vueloid = loginVuelo();
+                vueloid = loginVuela();
                 cout<<"Ingresar Dia: >";cin>>dia;
                 cout<<"Ingresar Mes: >";cin>>mes;
                 cout<<"Ingresar Ano: >";cin>>ano;
@@ -618,7 +618,7 @@ void vuelos(){
                 }
                 break;
             case 3:
-                vueloid = loginVuelo();
+                vueloid = loginVuela();
                 cout<<"Ingresar Hora: >";cin>>hora;
                 cout<<"Ingresar Minuto: >";cin>>hora;
                 if (vueloid !=-1){
@@ -628,7 +628,7 @@ void vuelos(){
                 }
                 break;
             case 4:
-                vueloid = loginVuelo();
+                vueloid = loginVuela();
                 cout<<"Ingresar Precio: >$";cin>>iPrecio;
                 if (vueloid !=-1){
                     Vuelos[vueloid].setPrecio(iPrecio);
@@ -642,21 +642,21 @@ void vuelos(){
                 }
                 break;
             case 6:
-                vueloid = loginVuelo();
+                vueloid = loginVuela();
                 cout<<"Ingresar Aerolinea: >";cin>>Aerolinea;
                 if (vueloid !=-1){
                     Vuelos[vueloid].setAerolinea(Aerolinea);
                 }
                 break;
             case 7:
-                vueloid = loginVuelo();
+                vueloid = loginVuela();
                 cout<<"Establecer Km: >";cin>>ikm;
                 if (vueloid !=-1){
                     Vuelos[vueloid].setKilometros(ikm);
                 }
                 break;
             case 8:
-                vueloid = loginVuelo();
+                vueloid = loginVuela();
                 if (vueloid !=-1){
                     for (int i = 0; i < 30; i++){ //se itera en toda la matriz ingresando los ids
                         for (int j = 0; j < 4; j++){
@@ -676,7 +676,7 @@ void vuelos(){
                 }
                 break;
             case 9:
-                vueloid = loginVuelo();
+                vueloid = loginVuela();
                 if (vueloid !=-1){
                     cout<<"Deseas eliminar a todos del vuelo? (s/n) >";
                     cin>>accepting;//se pregunta si se desea eliminar todos los pasajeros
@@ -705,69 +705,69 @@ void vuelos(){
                 }
                 break;
             case 10:
-                vueloid = loginVuelo();
+                vueloid = loginVuela();
                 if (vueloid !=-1){
                     cout<<Vuelos[vueloid].getFecha().str()<<endl;
                 }
                 break;
             case 11:
-                vueloid = loginVuelo();
+                vueloid = loginVuela();
                 if (vueloid !=-1){
                     cout<<Vuelos[vueloid].getHora().str()<<endl;
                 }
                 break;
             case 12:
-                vueloid = loginVuelo();
+                vueloid = loginVuela();
                 if (vueloid !=-1){
                     cout<<Vuelos[vueloid].getPrecio()<<endl;
                 }
                 break;
             case 13:
-                vueloid = loginVuelo();
+                vueloid = loginVuela();
                 if (vueloid !=-1){
                     cout<<Vuelos[vueloid].getDestino()<<endl;
                 }
                 break;
             case 14:
-                vueloid = loginVuelo();
+                vueloid = loginVuela();
                 if (vueloid !=-1){
                     cout<<Vuelos[vueloid].getAerolinea()<<endl;
                 }
                 break;
             case 15:
-                vueloid = loginVuelo();
+                vueloid = loginVuela();
                 if (vueloid !=-1){
                     cout<<Vuelos[vueloid].getKilometros()<<endl;
                 }
                 break;
             case 16:
-                vueloid = loginVuelo();
+                vueloid = loginVuela();
                 if (vueloid !=-1){
                     cout<<"\nAsientos en el vuelo: "<<Vuelos[vueloid].getAsientos()<<endl;
                     Vuelos[vueloid].muestraAsientosDisponibles();
                 }
                 break;
             case 17:
-                vueloid = loginVuelo();
+                vueloid = loginVuela();
                 if (vueloid !=-1){
                     cout<<Vuelos[vueloid].str()<<endl;
                 }
                 break;
             case 18:
-                vueloid = loginVuelo();
+                vueloid = loginVuela();
                 if (vueloid !=-1){
                     Vuelos[vueloid].muestraAsientosDisponibles();
                 }
                 break;
             case 19:
-                vueloid = loginVuelo();
+                vueloid = loginVuela();
                 if (vueloid !=-1){
                     Vuelos[vueloid].incrementaAsientos();
                     cout<<"\nSe elimino una reservacion de manera artificial!"<<endl;
                 }
                 break;
             case 20:
-                vueloid = loginVuelo();
+                vueloid = loginVuela();
                 if (vueloid !=-1){
                     Vuelos[vueloid].incrementaAsientos();
                     cout<<"\nSe agrego una reservacion de manera artificial!"<<endl;
@@ -784,7 +784,7 @@ void vuelos(){
                     printdataDate(india,inmes,iano);
                     cout<<endl;
 
-                    vueloid = loginVueloDate(india,inmes,iano);
+                    vueloid = loginVuelaDate(india,inmes,iano);
                     Vuelos[vueloid].muestraAsientosDisponibles();
                     cout<<endl;
                     cout<<"Para cancelar ingresar -1 en fila y columna"<<endl;
@@ -806,7 +806,7 @@ void vuelos(){
                 userid = login();
                 if(userid !=-1){
                     cout<<"Ingresar datos del vuelo donde se cancelara la reservacion:"<<endl;
-                    vueloid = loginVuelo();
+                    vueloid = loginVuela();
                     if (vueloid !=-1){
                         //verificar que este el usuario en el vuelo, si si, guardar la posicion
                         //eliminar ese asiento y quitar los kilometros
@@ -837,7 +837,7 @@ void vuelos(){
                 }
                 break;
             case 23:
-                vueloid = loginVuelo();
+                vueloid = loginVuela();
                 if (vueloid !=-1){
                     Vuelos[vueloid].muestraListaPasajeros(Pasajeros);
                 }
@@ -845,7 +845,7 @@ void vuelos(){
             case 24:
                 userid = login();
                 if(userid !=-1){
-                    vueloid = loginVuelo();
+                    vueloid = loginVuela();
                     Vuelos[vueloid].asientoDisponible(fila,col);
                 }
                 break;
